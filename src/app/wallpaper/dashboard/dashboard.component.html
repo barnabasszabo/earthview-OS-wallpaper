@@ -1,0 +1,31 @@
+
+<div class="container-fluid">
+
+  <form name="form1" class="container-fluid mt-3" (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <div class="form-group">
+      <label>Frequency of the auto wallpaper rotation</label>
+
+      <div class="input-group">
+        <input type="range" class="form-control" min="0" [max]="freqRanges.length-1" name="customRange2" [(ngModel)]="freqRange" />
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+      <small id="passwordHelpInline" class="text-muted">
+        {{freqRanges[freqRange].label}}
+      </small>
+    </div>
+
+  </form>
+
+  <div class="card mt-3" *ngIf="nextSlug">
+    <img [src]="nextSlug.photoUrl" class="card-img-top" [alt]="nextSlug.name" />
+    <div class="card-body">
+      <h5 class="card-title">{{nextSlug.name}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">This will be your next wallpaper</h6>
+      <button class="card-link btn btn-info" (click)="initNextWallpaper()">Let's see other one</button>
+      <button class="card-link btn btn-primary" (click)="changeBackground(nextSlug)">Set it now (<countdown #cd [config]="{formatDate: moreThan24HoursFormatDate , leftTime: (this.sleepTime / 1000)}"></countdown>)</button>
+    </div>
+  </div>
+
+</div>
