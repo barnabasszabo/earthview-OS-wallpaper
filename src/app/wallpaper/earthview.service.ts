@@ -28,6 +28,7 @@ export class EarthviewService {
   private sync(waitMs = 1000) {
     setTimeout(() => {
       console.log(`Start sync ...`);
+      this.cacheData = [];
       (async () => {
         this.cacheData = await this.parseSlugChain(this.initSlug, this.cacheData);
       })();
