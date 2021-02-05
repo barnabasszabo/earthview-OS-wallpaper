@@ -18,7 +18,6 @@ export class ElectronService {
   remote: typeof remote;
   childProcess: typeof childProcess;
   fs: typeof fs;
-  wallpaper: any;
   path: typeof path;
   os: typeof os;
   https: typeof https;
@@ -41,7 +40,6 @@ export class ElectronService {
       this.path = window.require('path');
       this.os = window.require('os');
       this.https = window.require('https');
-      this.wallpaper = window.require('wallpaper');
     }
   }
 

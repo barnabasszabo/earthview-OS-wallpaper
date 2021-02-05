@@ -1,9 +1,9 @@
 import { ElectronService } from './../core/services/electron/electron.service';
-import { EarthviewOptions, SlugChainData } from './earthview.model';
+import { SlugChainData } from './earthview.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as Jimp from 'jimp';
-
+import * as Wallpaper from 'wallpaper';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +13,7 @@ export class EarthviewService {
   initSlug = `svalbard-svalbard-and-jan-mayen-14259`;
   imageHomeDir: string;
   jimp: typeof Jimp;
+  wallpaper: typeof Wallpaper;
 
   constructor(private http: HttpClient, private electronService: ElectronService) {
     this.sync();
@@ -23,6 +24,7 @@ export class EarthviewService {
     }
 
     this.jimp = window.require('jimp');
+    this.wallpaper = window.require('wallpaper');
   }
 
   private sync(waitMs = 1000) {
@@ -36,13 +38,13 @@ export class EarthviewService {
     }, waitMs);
   }
 
-  async setWallpaper(data: SlugChainData, options?: EarthviewOptions) {
+  async setWallpaper(data: SlugChainData, options?: Wallpaper.SetOptions) {
     let picturePath = this.electronService.path.join(this.imageHomeDir, `${data.slug}.jpg`);
 
     await this.downloadFile(data.photoUrl, picturePath, data.name);
     console.log(`File downloaded ${data.slug}.jpg`, );
 
-    await this.electronService.wallpaper.set(picturePath, options);
+    await this.wallpaper.set(picturePath, options);
     console.log(`wallpaper set success`);
 
   }
